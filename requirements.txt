@@ -1,6 +1,5 @@
 fastapi[standard]
-sqlmodel
-fastapi 
+sqlmodel 
 uvicorn 
 langchain 
 langchain-openai 
