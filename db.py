@@ -52,7 +52,20 @@ class Workout(WorkoutBase, table=True):
 class WorkoutPublic(WorkoutBase):
     id: int
 
+# Nutrient class and models
+class NutrientBase(SQLModel):
+    userId: int = Field(default=None)
+    date: str | None = Field(default=None)
+    plan_name: str | None = Field(default=None)
+    exercise: str | None = Field(default=None)
+    duration: int | None = Field(default=None)
 
+
+class Nutrient(NutrientBase, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+
+class NutrientPublic(NutrientBase):
+    id: int
 
 
 

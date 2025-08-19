@@ -30,7 +30,7 @@ def read_users(
 def read_user(user_id: int, session: SessionDep):
     hero = session.get(Workout, user_id)
     if not hero:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="workout not found")
     return hero
 
 

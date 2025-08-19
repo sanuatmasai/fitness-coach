@@ -3,6 +3,7 @@ from db import create_db_and_tables
 import user_router
 import rag_router
 import workout_router
+import Nutrient_router
 
 
 app = FastAPI()
@@ -20,5 +21,7 @@ async def root():
 app.include_router(user_router.router)
 app.include_router(rag_router.router)
 app.include_router(workout_router.router)
+app.include_router(Nutrient_router.router)
+
 
 
