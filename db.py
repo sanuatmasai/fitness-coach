@@ -2,7 +2,7 @@ from typing import Annotated
 from fastapi import Depends
 from sqlmodel import Field, Session, SQLModel, create_engine
 
-
+# user class and models
 class UserBase(SQLModel):
     username: str = Field(default=None)
     email: str | None = Field(default=None)
@@ -33,6 +33,27 @@ class UserUpdate(UserBase):
     weight: int | None = None
     height: int | None = None
     goals: str | None = None
+
+
+
+
+# Workout class and models
+class WorkoutBase(SQLModel):
+    userId: int = Field(default=None)
+    date: str | None = Field(default=None)
+    meal: int | None = Field(default=None)
+    calories: int | None = Field(default=None)
+    macros: int | None = Field(default=None)
+
+
+class Workout(WorkoutBase, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+
+class WorkoutPublic(WorkoutBase):
+    id: int
+
+
+
 
 
 sqlite_file_name = "database.db"

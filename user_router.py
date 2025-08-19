@@ -22,23 +22,23 @@ def read_users(
     offset: int = 0,
     limit: Annotated[int, Query(le=100)] = 100,
 ):
-    heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
+    heroes = session.exec(select(User).offset(offset).limit(limit)).all()
     return heroes
 
 
-@router.get("/users/{hero_id}", response_model=UserPublic)
-def read_user(hero_id: int, session: SessionDep):
-    hero = session.get(User, hero_id)
+@router.get("/users/{user_id}", response_model=UserPublic)
+def read_user(user_id: int, session: SessionDep):
+    hero = session.get(User, user_id)
     if not hero:
-        raise HTTPException(status_code=404, detail="Hero not found")
+        raise HTTPException(status_code=404, detail="User not found")
     return hero
 
 
 @router.patch("/users/{user_id}", response_model=UserPublic)
-def update_user(hero_id: int, hero: UserUpdate, session: SessionDep):
+def update_user(user_id: int, hero: UserUpdate, session: SessionDep):
     hero_db = session.get(User, user_id)
     if not hero_db:
-        raise HTTPException(status_code=404, detail="Hero not found")
+        raise HTTPException(status_code=404, detail="User not found")
     hero_data = hero.model_dump(exclude_unset=True)
     hero_db.sqlmodel_update(hero_data)
     session.add(hero_db)
@@ -47,10 +47,10 @@ def update_user(hero_id: int, hero: UserUpdate, session: SessionDep):
     return hero_db
 
 @router.delete("/users/{user_id}")
-def delete_user(hero_id: int, session: SessionDep):
+def delete_user(user_id: int, session: SessionDep):
     hero = session.get(User, user_id)
     if not hero:
-        raise HTTPException(status_code=404, detail="Hero not found")
+        raise HTTPException(status_code=404, detail="User not found")
     session.delete(hero)
     session.commit()
     return {"ok": True}
